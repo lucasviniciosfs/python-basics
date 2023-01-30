@@ -1,12 +1,17 @@
-suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
-lues = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+days_of_week = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 
-res = []
-for key in lues:
-    for value in suits:
-        res.append({ key: value})
+def week():
+    while days_of_week:
+        yield days_of_week[0]
+        days_of_week.remove(days_of_week[0])
 
-
-print(res)
+days = week()
+print(next(days))
+print(next(days))
+print(next(days))
+print(next(days))
+print(next(days))
+print(next(days))
+print(next(days))
 
 
