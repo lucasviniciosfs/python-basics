@@ -1,20 +1,19 @@
 from functools import wraps
 
-def show_args(fn):
-    @wraps(fn)
-    def wapprer(*args, **kwargs):
-        print(f"Here are the args: {(args)}") 
-        print(f"Here are the kwargs: {kwargs}") 
-        return fn(*args, **kwargs)
-    return wapprer
-
-@show_args
-def teste(*args, **kwargs):
-    pass
-
-teste(1,2,3,a="hi",b="bye")
+def ensure_authorized(fn):
+    wraps(fn)
+    def wrap(*args, **kwargs):
+        if kwargs.get('role') == "admin":
+            return fn(*args, **kwargs)
+        else:
+            return print("Unauthorized")
+        
+    return wrap
 
 
+@ensure_authorized
+def show_secrets(*args, **kwargs):
+    return print("Shh! Don't tell anybody!")
 
-
-
+show_secrets(role="admin")
+show_secrets(role="nobody")
