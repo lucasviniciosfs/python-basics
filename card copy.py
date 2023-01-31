@@ -1,17 +1,20 @@
-days_of_week = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+from functools import wraps
 
-def week():
-    while days_of_week:
-        yield days_of_week[0]
-        days_of_week.remove(days_of_week[0])
+def show_args(fn):
+    @wraps(fn)
+    def wapprer(*args, **kwargs):
+        print(f"Here are the args: {(args)}") 
+        print(f"Here are the kwargs: {kwargs}") 
+        return fn(*args, **kwargs)
+    return wapprer
 
-days = week()
-print(next(days))
-print(next(days))
-print(next(days))
-print(next(days))
-print(next(days))
-print(next(days))
-print(next(days))
+@show_args
+def teste(*args, **kwargs):
+    pass
+
+teste(1,2,3,a="hi",b="bye")
+
+
+
 
 
