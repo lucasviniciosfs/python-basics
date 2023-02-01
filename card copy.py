@@ -1,19 +1,12 @@
-from functools import wraps
+from csv import writer, reader, DictWriter
 
-def ensure_authorized(fn):
-    wraps(fn)
-    def wrap(*args, **kwargs):
-        if kwargs.get('role') == "admin":
-            return fn(*args, **kwargs)
-        else:
-            return print("Unauthorized")
-        
-    return wrap
-
-
-@ensure_authorized
-def show_secrets(*args, **kwargs):
-    return print("Shh! Don't tell anybody!")
-
-show_secrets(role="admin")
-show_secrets(role="nobody")
+with open('teste.csv', 'w') as file:
+    headers = ('Name', 'LastName', 'Age')
+    csv_file = DictWriter(file, fieldnames=headers)
+    csv_file.writeheader()
+    csv_file.writerow({
+        'Name': 'Lucas',
+        'LastName': 'Vinicios',
+        'Age': 27
+    })
+    
