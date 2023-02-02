@@ -1,12 +1,11 @@
-from csv import writer, reader, DictWriter
+from csv import DictWriter
 
-with open('teste.csv', 'w') as file:
-    headers = ('Name', 'LastName', 'Age')
-    csv_file = DictWriter(file, fieldnames=headers)
-    csv_file.writeheader()
-    csv_file.writerow({
-        'Name': 'Lucas',
-        'LastName': 'Vinicios',
-        'Age': 27
+with open("arq.csv", "w") as file:
+    headers = ("Name", "Lastname", "Age")
+    writer = DictWriter(file, fieldnames=headers)
+    DictWriter.writeheader(writer)
+    writer.writerow({
+        "Name": "Lucas",
+        "Lastname": "Vinicios",
+        "Age": "27"
     })
-    
