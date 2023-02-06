@@ -20,5 +20,6 @@ for quote in html.select(".quote"):
     )
 
 print(quotes[0].name)
+print(quotes[0].name)
 
 
