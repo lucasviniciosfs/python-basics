@@ -1,8 +1,6 @@
-def list_check(lista):
-    if [item for item in lista if type(item) is not list]:
-        return False
-    return True
+def remove_every_other(lista):
+    return lista[0:len(lista):2]
 
-print(list_check([[],[1],[2,3], (1,2)])) # False
-print(list_check([1, True, [],[1],[2,3]])) # False
-print(list_check([[],[1],[2,3]])) # True
+print(remove_every_other([1,2,3,4,5]))
+print(remove_every_other([5,1,2,4,1]))  # [5,2,1]
+print(remove_every_other([1]))  # [1] 
