@@ -1,19 +1,10 @@
-def truncate(text, limit):
-    if limit < 3:
-        return 'Truncation must be at least 3 characters.'
-    elif len(text)+3 >= limit:
-        return str(text)[0:limit-3]+'...'   
-    else:
-        return str(text)[0:limit]
+def range_in_list(lista, start=0, end=-1):
+    if end == -1:
+        end = len(lista)
+    return lista[-1]
 
-
-print(truncate("Super cool", 2)) # "Truncation must be at least 3 characters."
-print(truncate("Super cool", 1)) # "Truncation must be at least 3 characters."
-print(truncate("Super cool", 0)) # "Truncation must be at least 3 characters."
-print(truncate("Hello World", 6)) # "Hel..."
-print(truncate("Problem solving is the best!", 10)) # "Problem..."
-print(truncate("Another test", 12)) # "Another t..."
-print(truncate("Woah", 4)) # "W..."
-print(truncate("Woah", 3)) # "..."
-print(truncate("Yo",100)) # "Yo"
-print(truncate("Holy guacamole!", 152)) # "Holy guacamole!"
+print(range_in_list([1,2,3,4],0,2)) #  6
+print(range_in_list([1,2,3,4],0,3)) # 10
+print(range_in_list([1,2,3,4],1)) #  9
+print(range_in_list([1,2,3,4])) # 10
+print(range_in_list([1,2,3,4],0,100)) # 10
