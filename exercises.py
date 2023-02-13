@@ -1,11 +1,19 @@
-def repeat(text, repetitions):
-    finalText = ''
-    while repetitions > 0:
-        finalText += text
-        repetitions -= 1
-    return finalText
+def truncate(text, limit):
+    if limit < 3:
+        return 'Truncation must be at least 3 characters.'
+    elif len(text)+3 >= limit:
+        return str(text)[0:limit-3]+'...'   
+    else:
+        return str(text)[0:limit]
 
 
-print(repeat('*', 3))  # '***' 
-print(repeat('abc', 2))  # 'abcabc' 
-print(repeat('abc', 0))  # ''
+print(truncate("Super cool", 2)) # "Truncation must be at least 3 characters."
+print(truncate("Super cool", 1)) # "Truncation must be at least 3 characters."
+print(truncate("Super cool", 0)) # "Truncation must be at least 3 characters."
+print(truncate("Hello World", 6)) # "Hel..."
+print(truncate("Problem solving is the best!", 10)) # "Problem..."
+print(truncate("Another test", 12)) # "Another t..."
+print(truncate("Woah", 4)) # "W..."
+print(truncate("Woah", 3)) # "..."
+print(truncate("Yo",100)) # "Yo"
+print(truncate("Holy guacamole!", 152)) # "Holy guacamole!"
