@@ -1,5 +1,13 @@
-def min_max_key_in_dictionary(dic):
-    return [min(dict(dic).keys()), max(dict(dic).keys())]
+def find_greater_numbers(lista):
+    count = 0
+    for i in range(0, len(lista)):
+        for item in lista[i:]:
+            #print(lista[i], item)
+            if lista[i] < item:
+                count +=1
+    return count
 
-print(min_max_key_in_dictionary({2:'a', 7:'b', 1:'c',10:'d',4:'e'})) # [1,10]
-print(min_max_key_in_dictionary({1: "Elie", 4:"Matt", 2: "Tim"})) # [1,4]
+print(find_greater_numbers([1,2,3])) # 3 
+print(find_greater_numbers([6,1,2,7])) # 4
+print(find_greater_numbers([5,4,3,2,1])) # 0
+print(find_greater_numbers([])) # 0
