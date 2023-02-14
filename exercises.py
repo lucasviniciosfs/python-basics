@@ -1,11 +1,12 @@
 def sum_up_diagonals(listas):
-  posInicial = 0
-  posFinal = len(listas) - 1
+  pos = 0
   sum_diag = 0
   for lista in listas:
-    sum_diag += lista[posInicial] + lista[posFinal]
-    posInicial += 1
-    posFinal -= 1
+    sum_diag += lista[pos]
+    pos += 1
+  for lista in listas:
+    pos -= 1
+    sum_diag += lista[pos]
   return sum_diag
 
 list1 = [
