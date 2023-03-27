@@ -1,7 +1,11 @@
-def two_oldest_ages(lista):
-    oldest = max(lista)
-    lista.remove(oldest)
-    second_oldest = max(lista)
-    return [second_oldest, oldest]
+def make_song(count=99, beverage="soda"):
+    while count > 0:
+        yield f"{count} bottles of {beverage} on the wall."
+        count -= 1
 
-print(two_oldest_ages([1, 2, 10, 8]))
+kombucha_song = make_song(5, "kombucha")
+print(next(kombucha_song))
+print(next(kombucha_song))
+print(next(kombucha_song))
+print(next(kombucha_song))
+print(next(kombucha_song))
