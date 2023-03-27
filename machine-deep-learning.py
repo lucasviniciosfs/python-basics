@@ -1,25 +1,22 @@
-import numpy as np
-from matplotlib import pyplot as plt
+import pandas as pd
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
 
-x1 = np.array([0, 0.6, 1.1, 1.5, 1.8, 2.5, 3, 3.1, 3.9, 4, 4.9, 5, 5.1])
-y1 = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
-x2 = np.array([3, 3.8, 4.4, 5.2, 5.5, 6.5, 6, 6.1, 6.9, 7, 7.9, 8, 8.1])
-y2 = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+credit_data = pd.read_csv("credit_data.csv")
 
-x = np.array([
-    [0], [0.6], [1.1], [1.5], [1.8], [2.5], [3], [3.1], [3.9], [4], [4.9], [5], [5.1],
-    [3], [3.8], [4.4], [5.2], [5.5], [6.5], [6], [6.1], [6.9], [7], [7.9], [8], [8.1]
-])
-y = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+features = credit_data[["income", "age", "loan"]]
+target = credit_data.default
 
-plt.plot(x1, y1, 'ro', color='blue')
-plt.plot(x2, y2, 'ro', color='red')
-
+feature_train, feature_test, target_train, target_test = train_test_split(features, target, test_size=0.3)
 
 model = LogisticRegression()
-model.fit(x , y)
+model.fit = model.fit(feature_train, target_train)
 
-print("b0 is: ", model.intercept_)
-print("b1 is: ", model.coef_)
+predictions = model.fit.predict(feature_test)
+
+print(confusion_matrix(target_test, predictions))
+print(accuracy_score(target_test, predictions))
+
