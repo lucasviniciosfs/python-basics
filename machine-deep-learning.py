@@ -16,4 +16,10 @@ y = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
 
 plt.plot(x1, y1, 'ro', color='blue')
 plt.plot(x2, y2, 'ro', color='red')
-plt.show()
+
+
+model = LogisticRegression()
+model.fit(x , y)
+
+print("b0 is: ", model.intercept_)
+print("b1 is: ", model.coef_)
