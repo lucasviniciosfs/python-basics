@@ -1,19 +1,13 @@
-import pandas as pd
 import numpy as np
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import cross_validate
+from matplotlib import pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
 
-credit_data = pd.read_csv("credit_data.csv")
+xBlue = np.array([0.3,0.5,1,1.4,1.7,2])
+yBlue = np.array([1,4.5,2.3,1.9,8.9,4.1])
 
-features = credit_data[["income", "age", "loan"]]
-target = credit_data.default
+xRed = np.array([3.3,3.5,4,4.4,5.7,6])
+yRed = np.array([7,1.5,6.3,1.9,2.9,7.1])
 
-x = np.array(features).reshape(-1, 3)
-y = np.array(target)
-
-model = LogisticRegression()
-predicted = cross_validate(model, x, y, cv=5)
-
-print(np.mean(predicted['test_score']))
-
+X = np.array([[0.3,1],[0.5,4.5],[1,2.3],[1.4,1.9],[1.7,8.9],[2,4.1],[3.3,7],[3.5,1.5],[4,6.3],[4.4,1.9],[5.7,2.9],[6,7.1]])
+y = np.array([0,0,0,0,0,0,1,1,1,1,1,1])
 
