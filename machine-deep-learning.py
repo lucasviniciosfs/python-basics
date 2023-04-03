@@ -1,13 +1,20 @@
-import numpy as np
-from matplotlib import pyplot as plt
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn import datasets
 
-xBlue = np.array([0.3,0.5,1,1.4,1.7,2])
-yBlue = np.array([1,4.5,2.3,1.9,8.9,4.1])
+iris_data = datasets.load_iris()
 
-xRed = np.array([3.3,3.5,4,4.4,5.7,6])
-yRed = np.array([7,1.5,6.3,1.9,2.9,7.1])
+features = iris_data.data
+targets = iris_data.target
 
-X = np.array([[0.3,1],[0.5,4.5],[1,2.3],[1.4,1.9],[1.7,8.9],[2,4.1],[3.3,7],[3.5,1.5],[4,6.3],[4.4,1.9],[5.7,2.9],[6,7.1]])
-y = np.array([0,0,0,0,0,0,1,1,1,1,1,1])
+feature_test, feature_train, target_test, target_train = train_test_split(features, targets, test_size=0.2)
+
+model = AdaBoostClassifier(n_estimators=100, learning_rate=1, random_state=123)
+model.fitted = model.fit(feature_train, target_train)
+model.predicted = model.fitted.predict(feature_test)
+
+print(confusion_matrix(target_test, model.predicted))
+print(accuracy_score(target_test, model.predicted))
 
