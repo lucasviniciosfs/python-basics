@@ -1,20 +1,44 @@
+import pandas as pd
+import numpy as np
 from sklearn.ensemble import AdaBoostClassifier
+from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
-from sklearn import datasets
+from sklearn import preprocessing
 
-iris_data = datasets.load_iris()
+def is_tasty(quality):
+    if quality >= 7:
+        return 1
+    else:
+        return 0
 
-features = iris_data.data
-targets = iris_data.target
+data = pd.read_csv("C:/Users/lucaferr/Study/Python/Datasets/Datasets/wine.csv", sep=";")
 
-feature_test, feature_train, target_test, target_train = train_test_split(features, targets, test_size=0.2)
+features = data[
+    ["fixed acidity", "volatile acidity", "citric acid", "residual sugar", "chlorides", "free sulfur dioxide",
+     "total sulfur dioxide", "density", "pH", "sulphates", "alcohol"]]
+data["tasty"] = data["quality"].apply(is_tasty)
+targets = data["tasty"] 
 
-model = AdaBoostClassifier(n_estimators=100, learning_rate=1, random_state=123)
-model.fitted = model.fit(feature_train, target_train)
-model.predicted = model.fitted.predict(feature_test)
+x = np.array(features).reshape(-1, 11)
+y = np.array(targets)
 
-print(confusion_matrix(target_test, model.predicted))
-print(accuracy_score(target_test, model.predicted))
+feature_train, feature_test, target_train, target_test = train_test_split(features, targets, test_size=0.2)
+
+param_dist = {
+    'n_estimators': [10, 50, 200],
+    'learning_rate': [0.01, 0.05, 0.3, 1],
+}
+
+estimator = AdaBoostClassifier()
+
+gridSearch = GridSearchCV(estimator=estimator, param_grid=param_dist, cv=10)
+gridSearch.fit(feature_train, target_train)
+
+predictions = gridSearch.predict(feature_test)
+
+
+print(confusion_matrix(target_test, predictions))
+print(accuracy_score(target_test, predictions))
 
