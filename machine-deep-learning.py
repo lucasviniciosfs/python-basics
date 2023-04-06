@@ -1,44 +1,18 @@
-import pandas as pd
-import numpy as np
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.model_selection import GridSearchCV
+from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import accuracy_score
-from sklearn import preprocessing
+from sklearn.preprocessing import OneHotEncoder
 
-def is_tasty(quality):
-    if quality >= 7:
-        return 1
-    else:
-        return 0
+import numpy as np
+import pandas as pa
 
-data = pd.read_csv("C:/Users/lucaferr/Study/Python/Datasets/Datasets/wine.csv", sep=";")
+data = pa.read_csv('credit_data.csv')
 
-features = data[
-    ["fixed acidity", "volatile acidity", "citric acid", "residual sugar", "chlorides", "free sulfur dioxide",
-     "total sulfur dioxide", "density", "pH", "sulphates", "alcohol"]]
-data["tasty"] = data["quality"].apply(is_tasty)
-targets = data["tasty"] 
+features = data[['income','age','loan']]
+labels = np.array(data.default).reshape(-1, 1)
 
-x = np.array(features).reshape(-1, 11)
-y = np.array(targets)
+features_train, features_test, labes_train, labels_test = train_test_split(features, labels, train_size=0.25)
 
-feature_train, feature_test, target_train, target_test = train_test_split(features, targets, test_size=0.2)
+encoder = OneHotEncoder()
+targets = encoder.fit_transform(labels).toarray()
 
-param_dist = {
-    'n_estimators': [10, 50, 200],
-    'learning_rate': [0.01, 0.05, 0.3, 1],
-}
-
-estimator = AdaBoostClassifier()
-
-gridSearch = GridSearchCV(estimator=estimator, param_grid=param_dist, cv=10)
-gridSearch.fit(feature_train, target_train)
-
-predictions = gridSearch.predict(feature_test)
-
-
-print(confusion_matrix(target_test, predictions))
-print(accuracy_score(target_test, predictions))
-
+print(targets)
